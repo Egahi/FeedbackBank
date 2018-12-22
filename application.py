@@ -1,11 +1,12 @@
 from flask import Flask, flash, redirect, render_template, request, session
-from cs50 import SQL
+from flask_sqlalchemy import SQLAlchemy
+from application import User
 
 # Configure application
 app = Flask(__name__)
 
-# Configure CS50 Library to use SQLite database
-#db = SQL("sqlite:///mashup.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////requests.db'
+db = SQLAlchemy(app)
 
 
 # Ensure responses aren't cached
@@ -21,3 +22,20 @@ def after_request(response):
 def index():
     """Render Landing page"""
     return render_template("index.html")
+
+@app.route("/submit", methods=["POST"])
+def buy():
+    """Log entery in database"""
+    title = request.form.get("title")
+    description = request.form.get("description")
+    client = request.form.get("client")
+    priority = request.form.get("priority")
+    date = request.form.get("date")
+    area = request.form.get("area")
+
+    me = User(title, description, client, priority, date, area)
+    db.session.add(me)
+    db.session.commit()
+
+    # Redirect user to home page
+    return redirect("/")
