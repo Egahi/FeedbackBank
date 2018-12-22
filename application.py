@@ -60,10 +60,15 @@ def buy():
     for i in range(len(previousEntry)):
         iPrePriority = int(previousEntry[i].priority)
         if iPriority == iPrePriority:
+            temp = iPriority
             previousEntry[i].priority = previousEntry[i].priority + 1
-
+            
 	    for j in range(i, len(previousEntry)):
-                previousEntry[j].priority = previousEntry[j].priority + 1
+                if temp == int(previousEntry[j].priority):
+                    previousEntry[j].priority = previousEntry[j].priority + 1
+                    temp = temp + 1
+                else:
+                    break 
             db.session.commit()
             break
 
