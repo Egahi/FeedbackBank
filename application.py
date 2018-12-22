@@ -33,6 +33,21 @@ def buy():
     date = request.form.get("date")
     area = request.form.get("area")
 
+    #  order by priority
+    User.query.order_by(User.priority).all()
+
+    # select entries for same client
+    previousEntry = User.query.filter_by(client=client).all()
+
+    modify = False
+
+    # modify priority list to accommodate latest entry
+    for i in range(len(previousEntry)):
+        if previousEntry[i]["priority"] == priority or modify == True:
+            previousEntry[i]["priority"] = previousEntry[i]["priority"] + 1
+            db.session.commit()
+            modify = True
+
     me = User(title, description, client, priority, date, area)
     db.session.add(me)
     db.session.commit()
