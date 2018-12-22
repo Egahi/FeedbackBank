@@ -72,8 +72,8 @@ def buy():
                     temp = temp + 1
                 else:
                     break
-        db.session.commit()
-        break
+            db.session.commit()
+            break
 
     # log new entry
     entry = Entry(title, description, client, priority, date, area)
