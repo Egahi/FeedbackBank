@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////requests.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SANDMAN_GENERATE_PKS'] = True
 db = SQLAlchemy(app)
 
 class Entry(db.Model):
