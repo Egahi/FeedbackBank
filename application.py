@@ -54,15 +54,14 @@ def buy():
 
     # select entries for same client
     previousEntry = Entry.query.filter_by(client=client).order_by(asc(Entry.priority)).all()
-    modify = False
 
     # modify priority list to accommodate latest entry
     for i in range(len(previousEntry)):
-        print(previousEntry[i].priority)
-        if previousEntry[i].priority == priority or modify == True:
-            previousEntry[i].priority = previousEntry[i].priority + 1
+        #print(previousEntry[i].priority)
+        if previousEntry[i].priority == priority:
+            previousEntry[i:] = [x.priority + 1 for x in previousEntry]
             db.session.commit()
-            modify = True
+            break
 
     # log new entry
     entry = Entry(title, description, client, priority, date, area)
