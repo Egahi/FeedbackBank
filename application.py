@@ -49,6 +49,7 @@ def buy():
     description = request.form.get("description")
     client = request.form.get("client")
     priority = request.form.get("priority")
+    iPriority = int(priority)
     date = request.form.get("date")
     area = request.form.get("area")
 
@@ -58,7 +59,8 @@ def buy():
     # modify priority list to accommodate latest entry
     for i in range(len(previousEntry)):
         #print(previousEntry[i].priority)
-        if previousEntry[i].priority == priority:
+        iPrePriority = int(previousEntry[i].priority)
+        if iPriority == iPrePriority:
             previousEntry[i:] = [x.priority + 1 for x in previousEntry]
             db.session.commit()
             break
