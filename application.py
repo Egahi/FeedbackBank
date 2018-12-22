@@ -34,7 +34,7 @@ def buy():
     area = request.form.get("area")
 
     #  order by priority
-    requests.query.order_by(User.priority).all()
+    requests.query.order_by(requests.priority).all()
 
     # select entries for same client
     previousEntry = requests.query.filter_by(client=client).all()
