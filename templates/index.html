@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+        <!-- documentation at http://getbootstrap.com/docs/4.0/, alternative themes at https://bootswatch.com/4-alpha/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="/static/styles.css" rel="stylesheet"/>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+        <title>Feedback Bank</title>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-md navbar-light bg-light border">
+            <a class="navbar-brand" href="/"><span class="blue">FE</span><span class="red">ED</span><span class="yellow">BA</span><span class="green">CK</span> <span class="red">Bank</span></a>
+        </nav>
+        <header>
+            <div class="alert alert-primary border text-center" role="alert">
+            </div>
+        </header>
+        <main class="container p-5">
+            <form action="/submit" method="post">
+                <div class="form-group">
+                    <label for"title"><b>Title</b></label>
+                    <input autofocus class="form-control" name="title" placeholder="descriptive name of request" type="text" required/>
+                </div>
+                <div class="form-group">
+                    <label for"description"><b>Description</b></label>
+                    <textarea autofocus class="form-control" name="Description" placeholder="Describe the feature" rows="5" cols="50"  required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for"client"><b>Client</b></label>
+                    <select name="client">
+                        <option disabled selected value>--Select a Client--</option>
+                        <option value="clienta">Client A</option>
+                        <option value="clientb">Client B</option>
+                        <option value="clientc">Client C</option>
+                    </select>
+                </div>
+                <div class="slidecontainer">
+                    <label for"priority"><b>Priority</b></label>
+                    <input name="priority" type="range" min="1" max="10" value="1" />
+                </div>
+                <div class="form-group">
+                    <label for"targetdate"><b>Target Date</b></label>
+                    <input autofocus class="form-control" name="date" placeholder="date you hope to have this feature" type="date"/>
+                </div>
+                <div class="form-group">
+                    <label for"prodarea"><b>Production Area</b></label>
+                    <select name="productionarea">
+                        <option disabled selected value>--Select a Production Area--</option>
+                        <option value="policies">Policies</option>
+                        <option value="billing">Billing</option>
+                        <option value="claims">Claims</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </main>
+    </body>
+
+</html>
+
