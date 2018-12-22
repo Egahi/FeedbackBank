@@ -48,6 +48,7 @@ def buy():
             db.session.commit()
             modify = True
 
+    # log new entry
     me = requests(title, description, client, priority, date, area)
     db.session.add(me)
     db.session.commit()
