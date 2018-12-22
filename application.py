@@ -11,7 +11,8 @@ db = SQLAlchemy(app)
 
 class Entry(db.Model):
     __tablename__ = 'requests'
-    title = db.Column('title', db.Text, primary_key=True)
+    ID = db.Column('id', db.Integer, primary_key=True)
+    title = db.Column('title', db.Text)
     description = db.Column('description', db.Text)
     client = db.Column('client', db.Text)
     priority = db.Column('priority', db.Integer)
