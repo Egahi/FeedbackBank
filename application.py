@@ -1,6 +1,6 @@
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
-from application import User
+from application import requests
 
 # Configure application
 app = Flask(__name__)
@@ -34,21 +34,21 @@ def buy():
     area = request.form.get("area")
 
     #  order by priority
-    User.query.order_by(User.priority).all()
+    requests.query.order_by(User.priority).all()
 
     # select entries for same client
-    previousEntry = User.query.filter_by(client=client).all()
+    previousEntry = requests.query.filter_by(client=client).all()
 
     modify = False
 
     # modify priority list to accommodate latest entry
     for i in range(len(previousEntry)):
-        if previousEntry[i]["priority"] == priority or modify == True:
-            previousEntry[i]["priority"] = previousEntry[i]["priority"] + 1
+        if previousEntry[i].priority == priority or modify == True:
+            previousEntry[i].priority = previousEntry[i].priority + 1
             db.session.commit()
             modify = True
 
-    me = User(title, description, client, priority, date, area)
+    me = requests(title, description, client, priority, date, area)
     db.session.add(me)
     db.session.commit()
 
