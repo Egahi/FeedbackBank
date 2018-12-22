@@ -12,11 +12,11 @@ db = SQLAlchemy(app)
 class Entry(db.Model):
     __tablename__ = 'requests'
     title = db.Column('title', db.Text, primary_key=True)
-    description = db.column('description', db.Text)
-    client = db.column('client', db.Text)
-    priority = db.column('priority', db.Integer)
-    date = db.column('date', db.Text)
-    area = db.column('area', db.Text)
+    description = db.Column('description', db.Text)
+    client = db.Column('client', db.Text)
+    priority = db.Column('priority', db.Integer)
+    date = db.Column('date', db.Text)
+    area = db.Column('area', db.Text)
 
     def __init__(self, tt, desc, clt, pry, dt, ar):
         self.title = tt
