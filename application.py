@@ -1,6 +1,5 @@
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
-from application import requests
 
 # Configure application
 app = Flask(__name__)
@@ -8,6 +7,22 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////requests.db'
 db = SQLAlchemy(app)
 
+class Entry(db.Model):
+    __tablename__ = 'requests'
+    title = db.column('title', db.Text)
+    description = db.column('description', db.Text)
+    client = db.column('client', db.Text)
+    priority = db.column('priority', db.Integer)
+    date = db.column('date', db.Text)
+    area = db.column('area', db.Text)
+
+    def __init__(self, tt, desc, clt, pry, dt, ar):
+        self.title = tt
+        self.description = desc
+        self.client = clt
+        self.priority = pry
+        self.date = dt
+        self.area = ar
 
 # Ensure responses aren't cached
 @app.after_request
@@ -34,10 +49,10 @@ def buy():
     area = request.form.get("area")
 
     #  order by priority
-    requests.query.order_by(requests.priority).all()
+    Entry.query.order_by(Entry.priority).all()
 
     # select entries for same client
-    previousEntry = requests.query.filter_by(client=client).all()
+    previousEntry = Entry.query.filter_by(client=client).all()
 
     modify = False
 
@@ -49,8 +64,8 @@ def buy():
             modify = True
 
     # log new entry
-    me = requests(title, description, client, priority, date, area)
-    db.session.add(me)
+    entry = Entry(title, description, client, priority, date, area)
+    db.session.add(entry)
     db.session.commit()
 
     # Redirect user to home page
