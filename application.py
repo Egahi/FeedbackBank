@@ -59,18 +59,21 @@ def buy():
     # modify priority list to accommodate latest entry
     for i in range(len(previousEntry)):
         iPrePriority = int(previousEntry[i].priority)
+
+        # increament priority value by one
         if iPriority == iPrePriority:
             temp = iPriority
             previousEntry[i].priority = previousEntry[i].priority + 1
-            
+
+        # increament next priority value by one if any
 	    for j in range(i, len(previousEntry)):
                 if temp == int(previousEntry[j].priority):
                     previousEntry[j].priority = previousEntry[j].priority + 1
                     temp = temp + 1
                 else:
-                    break 
-            db.session.commit()
-            break
+                    break
+        db.session.commit()
+        break
 
     # log new entry
     entry = Entry(title, description, client, priority, date, area)
