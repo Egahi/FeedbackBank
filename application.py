@@ -58,7 +58,6 @@ def buy():
 
     # modify priority list to accommodate latest entry
     for i in range(len(previousEntry)):
-        #print(previousEntry[i].priority)
         iPrePriority = int(previousEntry[i].priority)
         if iPriority == iPrePriority:
             previousEntry[i:] = [x.priority + 1 for x in previousEntry]
