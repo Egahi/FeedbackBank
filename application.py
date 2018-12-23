@@ -1,9 +1,6 @@
-from flask import Flask, redirect, render_template, request
+from flask import redirect, render_template, request
 from sqlalchemy import asc
-from alchemy import Entry, db
-
-# Configure application
-app = Flask(__name__)
+from alchemy import Entry, db, app
 
 # Ensure responses aren't cached
 @app.after_request
@@ -35,22 +32,23 @@ def buy():
     # modify priority list to accommodate latest entry
     for i in range(len(previousEntry)):
         iPrePriority = int(previousEntry[i].priority)
+        print(iPrePriority)
 
         # priority level assigned to new request, increment previous request's priority by 1
         if iPriority == iPrePriority:
             temp = iPriority
             previousEntry[i].priority = previousEntry[i].priority + 1
 
-	    for j in range(i, len(previousEntry)):
+            for j in range(i, len(previousEntry)):
 	        # increment subsequent priority levels by one if previously asigned
-            if temp == int(previousEntry[j].priority):
-                previousEntry[j].priority = previousEntry[j].priority + 1
-                temp = temp + 1
-            else:
-                break
+                if temp == int(previousEntry[j].priority):
+                    previousEntry[j].priority = previousEntry[j].priority + 1
+                    temp = temp + 1
+                else:
+                    break
 
-        db.session.commit()
-        break
+            db.session.commit()
+            break
 
     # log new entry
     entry = Entry(title, description, client, priority, date, area)
