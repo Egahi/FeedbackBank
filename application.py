@@ -33,21 +33,17 @@ def buy():
     for i in range(len(previousEntry)):
         iPrePriority = int(previousEntry[i].priority)
 
-        # priority level assigned to new request, increment previous request's priority by 1
+        # current priority level assigned to new request, increment previous request's
+        # and subsequent requests priority by 1
         if iPriority == iPrePriority:
-            temp = iPriority + 1
-            previousEntry[i].priority = previousEntry[i].priority + 1
+            previousEntry[i].priority += 1
+            iPriority += 1
 
-            for j in range(i + 1, len(previousEntry)):
-	        # increment subsequent priority levels by one if previously asigned
-                if temp == int(previousEntry[j].priority):
-                    previousEntry[j].priority = previousEntry[j].priority + 1
-                    temp = temp + 1
-                else:
-                    break
-
-            db.session.commit()
+        # priority level sorted
+        if iPriority < iPrePriority:
             break
+
+    db.session.commit()
 
     # log new entry
     entry = Entry(title, description, client, priority, date, area)
