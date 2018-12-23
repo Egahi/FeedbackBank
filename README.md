@@ -9,7 +9,10 @@ This web app is a simple form to enter the requests made by clients into a datab
 This app is built with python flask framework.
 To run the app,
 * clone this repo locally
-* execute `flask run` in your terminal
+* execute 
+    * `export FLASK_APP=application.py` then
+    * `flask run` in your terminal
 * navigate to the dislpayed url
+* fill the form and click <kbd>Submit</kbd>
 
 The records entered are stored in a requests table in the feedback database
