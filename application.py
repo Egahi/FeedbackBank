@@ -1,32 +1,9 @@
 from flask import Flask, redirect, render_template, request
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import asc
-
+from alchemy import Entry, db
 
 # Configure application
 app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feedback.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-class Entry(db.Model):
-    __tablename__ = 'requests'
-    ID = db.Column('id', db.Integer, primary_key=True)
-    title = db.Column('title', db.Text)
-    description = db.Column('description', db.Text)
-    client = db.Column('client', db.Text)
-    priority = db.Column('priority', db.Integer)
-    date = db.Column('date', db.Text)
-    area = db.Column('area', db.Text)
-
-    def __init__(self, tt, desc, clt, pry, dt, ar):
-        self.title = tt
-        self.description = desc
-        self.client = clt
-        self.priority = pry
-        self.date = dt
-        self.area = ar
 
 # Ensure responses aren't cached
 @app.after_request
@@ -35,7 +12,6 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
-
 
 @app.route("/")
 def index():
@@ -60,20 +36,21 @@ def buy():
     for i in range(len(previousEntry)):
         iPrePriority = int(previousEntry[i].priority)
 
-        # increament priority value by one
+        # priority level assigned to new request, increment previous request's priority by 1
         if iPriority == iPrePriority:
             temp = iPriority
             previousEntry[i].priority = previousEntry[i].priority + 1
 
-        # increament next priority value by one if any
 	    for j in range(i, len(previousEntry)):
-                if temp == int(previousEntry[j].priority):
-                    previousEntry[j].priority = previousEntry[j].priority + 1
-                    temp = temp + 1
-                else:
-                    break
-            db.session.commit()
-            break
+	        # increment subsequent priority levels by one if previously asigned
+            if temp == int(previousEntry[j].priority):
+                previousEntry[j].priority = previousEntry[j].priority + 1
+                temp = temp + 1
+            else:
+                break
+
+        db.session.commit()
+        break
 
     # log new entry
     entry = Entry(title, description, client, priority, date, area)
