@@ -32,7 +32,7 @@
             </div>
         </header>
         <main class="container p-5">
-            <form action="/submit" method="post">
+            <form action="/submit" method="post" onsubmit="submitted()">
                 <div class="form-group">
                     <label for"title"><b>Title</b></label>
                     <input autofocus class="form-control" name="title" placeholder="descriptive name of request" type="text" required/>
@@ -67,7 +67,7 @@
                         <option value="claims">Claims</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" type="submit" onclick="submitted()">Submit</button>
+                <button class="btn btn-primary" type="submit">Submit</button>
             </form>
         </main>
     </body>
