@@ -35,7 +35,7 @@ def buy():
 
         # priority level assigned to new request, increment previous request's priority by 1
         if iPriority == iPrePriority:
-            temp = iPriority
+            temp = iPriority + 1
             previousEntry[i].priority = previousEntry[i].priority + 1
 
             for j in range(i, len(previousEntry)):
