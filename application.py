@@ -38,7 +38,7 @@ def buy():
             temp = iPriority + 1
             previousEntry[i].priority = previousEntry[i].priority + 1
 
-            for j in range(i, len(previousEntry)):
+            for j in range(i + 1, len(previousEntry)):
 	        # increment subsequent priority levels by one if previously asigned
                 if temp == int(previousEntry[j].priority):
                     previousEntry[j].priority = previousEntry[j].priority + 1
